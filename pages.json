@@ -3,15 +3,41 @@
 		{
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "uni-app"
+				"navigationBarTitleText": "工具箱"
+			}
+		},
+		{
+			"path" : "pages/ppi/ppi",
+			"style" : 
+			{
+				"navigationBarTitleText" : "屏幕PPI计算"
+			}
+		},
+		{
+			"path" : "pages/projectiveRatio/projectiveRatio",
+			"style" : 
+			{
+				"navigationBarTitleText" : ""
+			}
+		},
+		{
+			"path" : "pages/travelExpense/travelExpense",
+			"style" : 
+			{
+				"navigationBarTitleText" : ""
 			}
 		}
 	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "uni-app",
-		"navigationBarBackgroundColor": "#F8F8F8",
-		"backgroundColor": "#F8F8F8"
+		"navigationBarTitleText": "",
+		"navigationBarBackgroundColor": "#FFFFFF",
+		"backgroundColor": "#FFFFFF",
+		"app-plus": {
+			// "titleNView": false,
+			// "scrollIndicator": "none",
+			// "softinputMode": "adjustResize"
+		}
 	},
 	"uniIdRouter": {}
 }

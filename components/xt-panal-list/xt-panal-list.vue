@@ -71,6 +71,9 @@
 				if (count == 0) {
 					return windowWidth;
 				}
+				if(count>= this.count){
+					return windowWidth;
+				}
 				let ys = windowWidth % 370;
 				return Math.min(370 + ys / count, 450);
 			},

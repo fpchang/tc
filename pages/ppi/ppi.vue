@@ -1,7 +1,7 @@
 <template>
 	<view>
 			
-			<xt-panal-list count="1">
+			<xt-panal-list :count="2">
 				<!-- #ifdef MP -->
 				<view v-for="(item) of menuList" slot="card{{index}}">
 					<text>{{item.title}}</text>
@@ -27,34 +27,38 @@
 								<text style="line-height:36px;font-weight: bold;">{{r}}</text>
 							</uni-forms-item>
 						</uni-forms>
-						<!-- <button @click="submit">Submit</button> -->
 					</view>
+				</template>
+				<template  v-slot:[`card1`]>
+					<view class="h">常见显示屏PPI</view>
+					<scroll-view :scroll-x="false" :scroll-y="true">
+						<view class="content">
+							<uni-table border  emptyText="暂无更多数据">
+								<!-- 表头行 -->
+								<uni-tr>
+									<uni-th align="left">分辨率</uni-th>
+									<uni-th align="left">尺寸</uni-th>
+									<uni-th align="left">PPI</uni-th>
+								</uni-tr>
+								<!-- 表格数据行 -->
+								<uni-tr v-for="item of listPPI">
+									
+									<uni-td>{{item.w}}*{{item.h}}</uni-td>
+									<uni-td>{{item.size}}</uni-td>
+									<uni-td>{{getPPI(item.w,item.h,item.size)}}</uni-td>
+								</uni-tr>
+					
+							
+							</uni-table>
+						</view>
+						
+					
+				</scroll-view>
 				</template>
 				<!-- #endif -->
 			</xt-panal-list>
 			
-			<scroll-view scroll-x="false" scroll-y="true">
-				<view class="h">常见显示屏PPI</view>
-				<view> 
-					<uni-table border  emptyText="暂无更多数据">
-						<!-- 表头行 -->
-						<uni-tr>
-							<uni-th align="left">分辨率</uni-th>
-							<uni-th align="left">尺寸</uni-th>
-							<uni-th align="left">PPI</uni-th>
-						</uni-tr>
-						<!-- 表格数据行 -->
-						<uni-tr v-for="item of listPPI">
-							
-							<uni-td>{{item.w}}*{{item.h}}</uni-td>
-							<uni-td>{{item.size}}</uni-td>
-							<uni-td>{{getPPI(item.w,item.h,item.size)}}</uni-td>
-						</uni-tr>
-			
-					
-					</uni-table>
-				</view>
-			</scroll-view>
+	
 		
 		
 		

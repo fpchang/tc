@@ -31,20 +31,28 @@
 				</template>
 				<template  v-slot:[`card1`]>
 					<view class="h">常见显示屏PPI</view>
-					<scroll-view :scroll-x="false" :scroll-y="true">
+					<scroll-view :scroll-x="false" :scroll-y="true" style="height:calc(100vh - 440px)">
 						<view class="content">
 							<uni-table border  emptyText="暂无更多数据">
 								<!-- 表头行 -->
 								<uni-tr>
-									<uni-th align="left">分辨率</uni-th>
+									<uni-th align="left" width="80px">分辨率</uni-th>
 									<uni-th align="left">尺寸</uni-th>
-									<uni-th align="left">PPI</uni-th>
+									<uni-th align="left" width="60px">PPI</uni-th>
 								</uni-tr>
 								<!-- 表格数据行 -->
 								<uni-tr v-for="item of listPPI">
 									
 									<uni-td>{{item.w}}*{{item.h}}</uni-td>
-									<uni-td>{{item.size}}</uni-td>
+									<uni-td>
+										<!-- <uni-data-select
+										v-model="item.size"
+										:localdata="sizeList"
+										@change="change"
+										label="应用选择"
+									  ></uni-data-select> -->
+									  <uni-easyinput type="digit"  v-model="item.size" placeholder="请输入尺寸" />
+									</uni-td>
 									<uni-td>{{getPPI(item.w,item.h,item.size)}}</uni-td>
 								</uni-tr>
 					
@@ -88,11 +96,16 @@ import {ref,computed} from "vue";
 				return getPPI(w,h,size);
 			});
 			interface op{w:number,h:number,size:number}
-			const listPPI:Array<op>=[
-				{w:1920,h:1080,size:14},
+			const listPPI:Array<op>= ref([
+				{w:1920,h:1200,size:13},
+				{w:1920,h:1080,size:14},				
 				{w:2560,h:1440,size:16},
+				{w:2560,h:1600,size:16},
 				{w:3440,h:1440,size:34},
-			]
+				{w:3840,h:2160,size:23.8},
+				{w:3840,h:2160,size:27},
+				{w:5120,h:2880,size:27}
+			]);
 			return {
 				ppiObj,r,getPPI,listPPI
 			}

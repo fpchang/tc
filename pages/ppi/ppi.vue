@@ -3,9 +3,54 @@
 			
 			<xt-panal-list :count="2">
 				<!-- #ifdef MP -->
-				<view v-for="(item) of menuList" slot="card{{index}}">
-					<text>{{item.title}}</text>
-				
+				<view  slot="card0">
+					<view class="h">PPI计算</view>
+						<view class="content">
+							<uni-forms ref="form" label-width="40px">
+								<uni-forms-item label="宽度">
+									<uni-easyinput type="number" v-model="ppiObj.w" placeholder="请输入屏幕宽度" />
+								</uni-forms-item>
+								<uni-forms-item label="高度">
+									<uni-easyinput type="number" v-model="ppiObj.h" placeholder="请输入屏幕高度" />
+								</uni-forms-item>
+								<uni-forms-item label="尺寸">
+									<uni-easyinput type="digit"  v-model="ppiObj.size" placeholder="请输入尺寸" />
+								</uni-forms-item>
+								<uni-forms-item label="PPI">
+									<text style="line-height:36px;font-weight: bold;">{{r}}</text>
+								</uni-forms-item>
+							</uni-forms>
+						</view>
+					
+				</view>
+				<view  slot="card1">
+					<view class="h">常见显示屏PPI</view>
+						<scroll-view :scroll-x="false" :scroll-y="true" style="height:calc(100vh - 440px)">
+							<view class="content">
+								<uni-table border  emptyText="暂无更多数据">
+									<!-- 表头行 -->
+									<uni-tr>
+										<uni-th align="left" width="80px">分辨率</uni-th>
+										<uni-th align="left">尺寸</uni-th>
+										<uni-th align="left" width="60px">PPI</uni-th>
+									</uni-tr>
+									<!-- 表格数据行 -->
+									<uni-tr v-for="item of listPPI">
+										
+										<uni-td>{{item.w}}*{{item.h}}</uni-td>
+										<uni-td>
+								
+										  <uni-easyinput type="digit"  v-model="item.size" placeholder="请输入尺寸" />
+										</uni-td>
+										<uni-td>{{getPPI(item.w,item.h,item.size)}}</uni-td>
+									</uni-tr>
+						
+								
+								</uni-table>
+							</view>
+							
+						
+					</scroll-view>
 					
 				</view>
 				<!-- #endif -->

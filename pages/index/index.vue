@@ -43,8 +43,8 @@
 	export default {
 		setup() {
 			const menuList:Object=[
-				{title:"计算",list:[{title:"显示器PPI计算",icon:"bi:display-fill",href:"/pages/ppi/ppi"},{title:"投影投射比",icon:"solar:projector-bold-duotone",href:""}]},
-				{title:"记账",list:[{title:"旅游消费统计",icon:"material-symbols:account-balance-wallet",href:""}]}
+				{title:"计算",list:[{title:"显示器PPI计算",icon:"bi:display-fill",href:"/pages/ppi/ppi"},{title:"投影投射比",icon:"solar:projector-bold-duotone",href:"/pages/projectiveRatio/projectiveRatio"}]},
+				{title:"记账",list:[{title:"旅游消费统计",icon:"material-symbols:account-balance-wallet",href:"/pages/travelExpense/travelExpense"}]}
 			]
 			
 			return {menuList}
@@ -55,7 +55,7 @@
 			}
 		},
 		onLoad() {
-
+		console.log(11111,getApp().globalData)
 		},
 		methods: {
 

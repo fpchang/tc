@@ -1,0 +1,5 @@
+{
+	"CREATE_Main_SQL":"id INTEGER PRIMARY KEY AUTOINCREMENT,title text,createTime integer,mark text",
+	"CREATE_child_SQL":"id INTEGER PRIMARY KEY AUTOINCREMENT,title text,createTime integer,mark text,amount double"
+	
+}

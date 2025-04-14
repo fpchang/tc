@@ -1,5 +1,5 @@
 {
-	"CREATE_Main_SQL":"id INTEGER PRIMARY KEY AUTOINCREMENT,title text,createTime integer,mark text",
-	"CREATE_child_SQL":"id INTEGER PRIMARY KEY AUTOINCREMENT,title text,createTime integer,mark text,amount double"
+	"CREATE_TE":"id INTEGER PRIMARY KEY AUTOINCREMENT,title text,createTime integer,mark text",
+	"CREATE_TEDETAIL":"id INTEGER PRIMARY KEY AUTOINCREMENT,title text,createTime integer,mark text,amount double,te_id INTEGER, FOREIGN KEY(te_id)  REFERENCES  TE(id)"
 	
 }

@@ -19,6 +19,7 @@
 
 <script lang="ts">
 	import {computed, ref} from "vue";
+	import { DB } from '@/api/sqlite.js';
 	export default {
 		setup(){
 			let te=ref({
@@ -30,8 +31,19 @@
 			let submitDisabled=computed(()=>{
 				return submitLoading.value || !te.value.title
 			});
-			const submitForm=()=>{
-				console.log("保存",te.value)
+			
+			const add=  ()=>{
+				let time = new Date().getTime();
+				let sql = `'${te.value.title}','${time}','${te.value.mark}'`;
+				let condition = "'title','createTime','mark'";
+				// 新增 DB.insertTableData(表名, 对应表头列的数据)
+				 return DB.insertTableData("te", sql, condition)
+			}
+			const submitForm= async ()=>{
+				console.log("保存",te.value);
+				await add();
+				uni.navigateBack();
+				
 			}
 			return {
 				submitLoading,submitForm,te,submitDisabled
@@ -43,7 +55,11 @@
 			}
 		},
 		methods: {
-			
+				async add(){
+					
+						
+								
+						},
 		}
 	}
 </script>

@@ -1,20 +1,53 @@
 <template>
 	<view>
-		<block v-if="!teList">
+		<block v-if="!teList ||teList.length<1">
 			<noData text_content="没有账单数据,点击创建" :showControl="true" text_control_add="创建" @Event_one="add"></noData>
 		</block>
 		<block v-if="teList&&teList.length">
-			<view>
-				<navigator url="/pages/travelExpense/add/add">+创建</navigator>
+			<view style="padding:0 20px">
+				
+					<view class="menu-list">
+						<navigator url="/pages/travelExpense/add/add">
+						<view class="menu-item" > 
+							<text class="tx">
+								<l-icon name="material-symbols:add-card" size="30px" color="#a1a1a1"/>
+							</text>
+							<text class="tx">创建账单</text>
+							
+						</view>
+						</navigator>
+						</view>
+					
+					
+				
 			</view>
 			<scroll-view :scroll-x="false" scroll-y="true">
 				<block v-if="teList">
 					<xt-panal-list :count="2">
 						<!-- #ifdef H5 || APP-PLUS -->
 						<template v-for="(item,index) of teList" v-slot:[`card${index}`]>
-							<view>+增加明细</view>
+							<!-- <view>+增加明细</view>
 							<view>{{item.title}}</view>
-							<view>{{item.totalAccount}}</view>
+							<view>{{item.totalAccount}}</view> -->
+							<view class="menu-list">
+
+								<view class="menu-item" > 
+									<text class="tx"><l-icon name="material-symbols:add-chart-sharp" size="20px" color="#a1a1a1"/></text>
+									<text class="tx">添加</text>
+								</view>
+								<view class="menu-item" > 
+									<text class="tx"><l-icon name="material-symbols:scan-delete" size="20px" color="#a1a1a1"/></text>
+									<text class="tx">删除</text>
+								</view>
+								<view class="menu-item" > 
+									<text class="tx"><l-icon name="tdesign:folder-details-filled" size="20px" color="#a1a1a1"/></text>
+									<text class="tx">详情</text>
+								</view>
+							  </view>
+							<uni-card :title="item.title" extra="" spacing=0 margin=0  :border="false" shadow="0 0">
+								<view><text>金额：</text><text>2999￥</text></view>
+								
+							</uni-card>
 						</template>
 						<!--#edif-->
 					</xt-panal-list>
@@ -30,6 +63,7 @@
 <script lang="ts">
 	import { DB } from '@/api/sqlite.js';
 	import { ref, computed, watch } from "vue";
+	import SQLJSON from "./sql.json";
 	export default {
 		setup() {
 			// interface teObj{
@@ -44,32 +78,37 @@
 					url: "/pages/travelExpense/add/add"
 				})
 			}
-			return { teList, add }
+			return { teList, add ,SQLJSON}
 		},
 		data() {
 			return {
 				listData: []
 			};
 		},
-		onLoad() {
-			this.openSQL();
+		async onLoad() {
+			//await DB.dropTable("te");
+			//await DB.dropTable("te_detail");
+			await this.openSQL();
+			
+			await this.createTableTe();
+			await this.createTableTeDetail();
+			 this.selectTe();
+			console.log("创建完成")
 		},
-
+		onShow() {
+			this.selectTe();
+		},
 		methods: {
 			// 打开数据库
-			openSQL() {
+			 openSQL() {
 				// 这个是查询有没有打开数据库
 				let open = DB.isOpen();
 				console.log("数据库状态", open ? "开启" : "关闭");
 				if (!open) {
-					DB.openSqlite()
-						.then(res => {
-							console.log("数据库已打开");
-						})
-						.catch(error => {
-							console.log("数据库开启失败");
-						});
+					return DB.openSqlite()
+						
 				}
+				return Promise.resolve()
 			},
 
 			// 关闭数据库
@@ -88,72 +127,27 @@
 			},
 
 			// 创建表
-			createTable() {
-				let open = DB.isOpen();
-				if (open) {
+			createTableTe() {
+			
 					this.openSQL();
-					let sql =
-						'"id" INTEGER PRIMARY KEY AUTOINCREMENT,"name" text,"content" text,"time" text';
-					// 创建表 DB.createTable(表名, 表的列)
-					DB.createTable("chat", sql)
-						.then(res => {
-							console.log("创建chat表成功");
-						})
-						.catch(error => {
-							console.log("创建表失败");
-						});
-				} else {
-					console.log("数据库未打开");
-				}
+					let sql =SQLJSON.CREATE_TE;
+					return DB.createTable("te", sql)
+						
+				
 			},
-			// 新增表数据
-			insertTableData() {
-				let open = DB.isOpen();
-				if (open) {
-					let arr = [{
-						name: '小明',
-						content: "你好呀"
-					},
-					{
-						name: '小红',
-						content: "HI"
-					}
-					]
-					arr.map(item => {
-						let time = this.formatDate(new Date().getTime());
-						let sql = `'${item.name}','${item.content}','${time}'`;
-						let condition = "'name','content','time'";
-						// 新增 DB.insertTableData(表名, 对应表头列的数据)
-						DB.insertTableData("chat", sql, condition)
-							.then(res => {
-								console.log("新增数据成功");
-								this.selectTableData();
-							})
-							.catch(error => {
-								console.log("失败", error);
-							});
-					})
-				} else {
-					this.showToast("数据库未打开");
-				}
+			// 创建子表
+			createTableTeDetail() {			
+					this.openSQL();
+					let sql =SQLJSON.CREATE_TEDETAIL;
+					return DB.createTable("te_detail", sql);										
 			},
-			// 查询表数据
-			selectTableData() {
-				let open = DB.isOpen();
-				if (open) {
-					// 查询表 DB.selectTableData(表名,查询条件列名,查询条件列值)
-					DB.selectTableData("chat")
-						.then(res => {
-							console.log("contact表数据", res);
-							this.listData = res;
-						})
-						.catch(error => {
-							console.log("查询失败", error);
-						});
-				} else {
-					this.showToast("数据库未打开");
-				}
-			},
+		async selectTe(){
+			const res = await DB.selectTableData("te");
+			console.log("列表",res)
+				this.teList=res;
+		},
+	
+	
 			// 修改表数据
 			updateTableData() {
 				let open = DB.isOpen();
@@ -236,6 +230,22 @@
 		}
 	};
 </script>
-<style>
+<style lang="scss">
 
+  .menu-list{
+  	display: flex;
+  	gap:10px;
+	justify-content: flex-end;
+  	.menu-item{
+  		display: flex;
+  		flex-direction: column;
+  		justify-content: center;
+  		padding:10px 10px;
+  		.tx{
+  			text-align: center;
+  			font-size: 14px;
+  			color: #a1a1a1;
+  		}
+  	}
+  }
 </style>

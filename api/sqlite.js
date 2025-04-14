@@ -1,6 +1,6 @@
 export var DB = {
-  dbName: 'xxx', // 数据库名称
-  dbPath: '_downloads/xxx.db', // 数据库地址,推荐以下划线为开头   _doc/xxx.db
+  dbName: 'tc', // 数据库名称
+  dbPath: '_downloads/te.db', // 数据库地址,推荐以下划线为开头   _doc/xxx.db
  
   // 判断数据库是否打开
   isOpen() {

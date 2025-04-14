@@ -24,14 +24,14 @@
 			"path" : "pages/travelExpense/travelExpense",
 			"style" : 
 			{
-				"navigationBarTitleText" : ""
+				"navigationBarTitleText" : "旅游消费统计"
 			}
 		},
 		{
 			"path" : "pages/travelExpense/add/add",
 			"style" : 
 			{
-				"navigationBarTitleText" : ""
+				"navigationBarTitleText" : "添加账单"
 			}
 		},
 		{

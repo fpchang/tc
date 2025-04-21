@@ -1,6 +1,6 @@
 <template>
 	<view>
-			
+			<scroll-view :scroll-x="false" :scroll-y="true" style="height:100vh">
 			<xt-panal-list :count="2">
 				<!-- #ifdef MP -->
 				<view  slot="card0">
@@ -70,7 +70,6 @@
 				</template>
 				<template  v-slot:[`card1`]>
 					<view class="h">常见投影投射比</view>
-					<scroll-view :scroll-x="false" :scroll-y="true" style="height:calc(100vh - 440px)">
 						<view class="content">
 							<uni-table border  emptyText="暂无更多数据">
 								<!-- 表头行 -->
@@ -91,10 +90,11 @@
 								</uni-tr>							
 							</uni-table>
 						</view>											
-				</scroll-view>
+				
 				</template>
 				<!-- #endif -->
-			</xt-panal-list>					
+			</xt-panal-list>	
+			</scroll-view>
 	</view>
 </template>
 

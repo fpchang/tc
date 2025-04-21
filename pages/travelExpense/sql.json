@@ -1,5 +1,5 @@
 {
 	"CREATE_TE":"id INTEGER PRIMARY KEY AUTOINCREMENT,title text,createTime integer,mark text",
-	"CREATE_TEDETAIL":"id INTEGER PRIMARY KEY AUTOINCREMENT,title text,createTime integer,mark text,amount double,te_id INTEGER, FOREIGN KEY(te_id)  REFERENCES  TE(id)"
+	"CREATE_TEDETAIL":"id INTEGER PRIMARY KEY AUTOINCREMENT,type text,type_zn text,time integer,mark text,amount double,te_id INTEGER, FOREIGN KEY(te_id)  REFERENCES  TE(id)"
 	
 }

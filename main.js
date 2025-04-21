@@ -1,5 +1,5 @@
 import App from './App'
-
+import {CF} from './static/utils/CF';
 // #ifndef VUE3
 import Vue from 'vue'
 import './uni.promisify.adaptor'

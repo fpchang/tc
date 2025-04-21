@@ -30,22 +30,27 @@
 							<view>{{item.title}}</view>
 							<view>{{item.totalAccount}}</view> -->
 							<view class="menu-list">
-
-								<view class="menu-item" > 
+					<!-- 		<navigator :url="`/pages/travelExpense/addDetail/addDetail?te_id=${item.id}`">
+								<view class="menu-item" >
 									<text class="tx"><l-icon name="material-symbols:add-chart-sharp" size="20px" color="#a1a1a1"/></text>
 									<text class="tx">添加</text>
 								</view>
-								<view class="menu-item" > 
+							</navigator> -->
+								
+								<view class="menu-item" @click="deleteItems(item.id)"> 
 									<text class="tx"><l-icon name="material-symbols:scan-delete" size="20px" color="#a1a1a1"/></text>
 									<text class="tx">删除</text>
 								</view>
-								<view class="menu-item" > 
-									<text class="tx"><l-icon name="tdesign:folder-details-filled" size="20px" color="#a1a1a1"/></text>
-									<text class="tx">详情</text>
-								</view>
+								<navigator :url="`./traveExpenseDetail/traveExpenseDetail?te_id=${item.id}`">
+									<view class="menu-item" >
+										<text class="tx"><l-icon name="tdesign:folder-details-filled" size="20px" color="#a1a1a1"/></text>
+										<text class="tx">详情</text>
+									</view>
+								</navigator>
+								
 							  </view>
 							<uni-card :title="item.title" extra="" spacing=0 margin=0  :border="false" shadow="0 0">
-								<view><text>金额：</text><text>2999￥</text></view>
+								<view><text>金额：</text><text>{{item.totalAmount}}￥</text></view>
 								
 							</uni-card>
 						</template>
@@ -142,11 +147,31 @@
 					return DB.createTable("te_detail", sql);										
 			},
 		async selectTe(){
-			const res = await DB.selectTableData("te");
-			console.log("列表",res)
-				this.teList=res;
+			//const sql ="select te.*,(select sum(amount) from te_detail where te.id=te_detail.te_id) as totalAmount  from te";
+			const sql2 = "select te.*,ifnull(tt.totalAmount,0)as totalAmount from te left join (select te_id,sum(amount) as totalAmount from te_detail group by te_id)  tt on te.id=tt.te_id";		
+			try{
+				const res = await DB.selectTableDataSQL(sql2);
+					this.teList=res;
+			}catch(e){
+				console.error(e)
+			}
+			
 		},
-	
+		
+	async deleteItems(id:Number){
+		const conf = await uni.showModal({
+			title: '确认删除此账单',
+			content: '删除后将无法恢复,确认删除吗?',
+			cancelText: '取消',
+			confirmText: '确认'
+		})
+		if (conf['cancel']) {
+			return;
+		}
+		await DB.deleteTableData("te_detail","te_id",id);
+		await DB.deleteTableData("te","id",id);
+		this.selectTe();
+		},
 	
 			// 修改表数据
 			updateTableData() {

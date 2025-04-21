@@ -142,7 +142,21 @@ export var DB = {
       return new Promise((resolve, reject) => { reject("错误添加") })
     }
   },
- 
+ selectTableDataSQL(sql){
+	 return new Promise((resolve, reject) => {
+	   // 表格查询数据  执行查询的SQL语句
+	   plus.sqlite.selectSql({
+	     name: this.dbName,
+	     sql: sql,
+	     success(e) {
+	       resolve(e);
+	     },
+	     fail(e) {
+	       reject(e);
+	     }
+	   })
+	 })
+ },
   // 查询获取数据库里的数据 sql:'SELECT * FROM dbTable WHERE lname = 'lvalue''
   // 查询 SELECT * FROM 、 dbTable 是表名、 WHERE 查找条件 lname,lvalue 是查询条件的列名和列值
   selectTableData(dbTable, uname, namevalue, upass, passvalue,urrn,rrnvalue) {

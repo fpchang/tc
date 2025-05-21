@@ -128,7 +128,6 @@ import {ref,computed,watch} from "vue";
 				return size.toFixed(2);
 			});
 			watch(pt,()=>{
-				console.log("1111111111")
 			},{deep:true});
 			interface op{pr:number,size:number,distance:number}
 			const listProjectiveRatio:Array<op>= ref([

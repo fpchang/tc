@@ -63,10 +63,10 @@ export default {
 		// { id:2025049, red:[3, 6, 19, 27, 29, 33], blue: 11 },
 		// { id:2025050, red:[9, 12, 15, 18, 22, 33], blue: 16 },
 		// { id:2025051, red:[1, 2, 3, 4, 17, 22], blue: 1 },
-		{ id:2025052, red:[6, 7, 10, 17, 20, 26], blue: 9 },
-		{ id:2025053, red:[6, 9, 10, 13, 30, 33], blue: 7 },
-		{ id:2025054, red:[5, 7, 10, 21, 24, 27], blue: 16 },
-		{ id:2025055, red:[2, 5, 22, 27, 29, 33], blue: 12 },
+		//{ id:2025052, red:[6, 7, 10, 17, 20, 26], blue: 9 },
+		//{ id:2025053, red:[6, 9, 10, 13, 30, 33], blue: 7 },
+		//{ id:2025054, red:[5, 7, 10, 21, 24, 27], blue: 16 },
+		//{ id:2025055, red:[2, 5, 22, 27, 29, 33], blue: 12 },
 		{ id:2025056, red:[1, 2, 10, 14, 28, 31], blue: 3 }
       ];
       let hisoryFormat = history.map((item) => {
@@ -79,7 +79,7 @@ export default {
 	  let i =0;
 	   this.next = target[target.length-1];
 	  target.splice(target.length-1,1);
-      while(JSON.stringify(target)!=JSON.stringify(hisoryFormat)&&i<9991000){
+      while(JSON.stringify(target)!=JSON.stringify(hisoryFormat)&&i<910000000){
 		target=this.getTarget(history.length+1);
 		this.next = target[target.length-1];
 		 target.splice(target.length-1,1);

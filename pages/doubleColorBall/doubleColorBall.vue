@@ -52,17 +52,17 @@ export default {
      
 		uni.showLoading();
       let history = [
-		{ id:2025041, red:[6, 10, 17, 19, 25, 31], blue: 6 },
-		{ id:2025042, red:[7, 13, 19, 23, 27, 33], blue: 12 },
-		{ id:2025043, red:[3, 12, 16, 19, 20, 32], blue: 13 },
-		{ id:2025044, red:[2, 3, 7, 8, 14, 28], blue: 11},
-		{ id:2025045, red:[2, 14, 19, 24, 29, 33], blue: 13 },
-		{ id:2025046, red:[2, 3, 10, 16, 29, 33], blue: 1 },
-        { id:2025047, red:[1, 14, 21, 22, 23, 31], blue: 12 },
-        { id:2025048, red:[16, 21, 22, 23, 27, 31], blue: 10 },
-		{ id:2025049, red:[3, 6, 19, 27, 29, 33], blue: 11 },
-		{ id:2025050, red:[9, 12, 15, 18, 22, 33], blue: 16 },
-		{ id:2025051, red:[1, 2, 3, 4, 17, 22], blue: 1 },
+		// { id:2025041, red:[6, 10, 17, 19, 25, 31], blue: 6 },
+		// { id:2025042, red:[7, 13, 19, 23, 27, 33], blue: 12 },
+		// { id:2025043, red:[3, 12, 16, 19, 20, 32], blue: 13 },
+		// { id:2025044, red:[2, 3, 7, 8, 14, 28], blue: 11},
+		// { id:2025045, red:[2, 14, 19, 24, 29, 33], blue: 13 },
+		// { id:2025046, red:[2, 3, 10, 16, 29, 33], blue: 1 },
+        // { id:2025047, red:[1, 14, 21, 22, 23, 31], blue: 12 },
+        // { id:2025048, red:[16, 21, 22, 23, 27, 31], blue: 10 },
+		// { id:2025049, red:[3, 6, 19, 27, 29, 33], blue: 11 },
+		// { id:2025050, red:[9, 12, 15, 18, 22, 33], blue: 16 },
+		// { id:2025051, red:[1, 2, 3, 4, 17, 22], blue: 1 },
 		{ id:2025052, red:[6, 7, 10, 17, 20, 26], blue: 9 },
 		{ id:2025053, red:[6, 9, 10, 13, 30, 33], blue: 7 },
 		{ id:2025054, red:[5, 7, 10, 21, 24, 27], blue: 16 },
@@ -79,10 +79,13 @@ export default {
 	  let i =0;
 	   this.next = target[target.length-1];
 	  target.splice(target.length-1,1);
-      while(JSON.stringify(target)!=JSON.stringify(hisoryFormat)&&i<91000000){
+      while(JSON.stringify(target)!=JSON.stringify(hisoryFormat)&&i<9991000){
 		target=this.getTarget(history.length+1);
 		this.next = target[target.length-1];
 		 target.splice(target.length-1,1);
+		 if(i%1000000==0){
+			 console.log("100万：：",i);
+		 }
 		 //console.log("ttt",target)
 		i++;
 		     

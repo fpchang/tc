@@ -1,3 +1,4 @@
+
 const redball=[],blueball=[];
 let i = 1;
 while (i < 34) {
@@ -32,7 +33,8 @@ let fnObj={
 		//{ id:2025053, red:[6, 9, 10, 13, 30, 33], blue: 7 },
 		//{ id:2025054, red:[5, 7, 10, 21, 24, 27], blue: 16 },
 		{ id:2025055, red:[2, 5, 22, 27, 29, 33], blue: 12 },
-		{ id:2025056, red:[1, 2, 10, 14, 28, 31], blue: 3 }
+		{ id:2025056, red:[1, 2, 10, 14, 28, 31], blue: 3 },
+		{ id:2025057, red:[4, 9, 15, 16, 25, 30], blue: 14}
       ];
       let hisoryFormat = history.map((item) => {
         return { red: item.red, blue: item.blue };
@@ -45,8 +47,7 @@ let fnObj={
         next = target[target.length-1];
 	  target.splice(target.length-1,1);
 	  let time = Date.now();
-     // while(JSON.stringify(target)!=JSON.stringify(hisoryFormat)&&i<3100000){
-		while(!fnObj.isequqlBall(hisoryFormat,target)&&i<4000000){
+		while(!fnObj.isequqlBall(hisoryFormat,target)){
 		target=fnObj.getTarget(history.length+1);
 		next = target[target.length-1];
 		 target.splice(target.length-1,1);
@@ -58,7 +59,7 @@ let fnObj={
 		i++;
 		     
       }
-	  console.log("循环结束",target,i,blueball);
+	  console.log("循环结束",target,i);
 	 // uni.hideLoading()
 	 
     },
@@ -99,15 +100,43 @@ let fnObj={
       return fnObj.getRandomFromArray(blueball);
     },
     getRandomRedBall() {
-      let targetArr = [...redball];
-      let redBallSelect = [];
-      while (redBallSelect.length < 6) {
-        let r = fnObj.getRandomFromArray(targetArr);
-        let index = targetArr.indexOf(r);
-        redBallSelect.push(r);
-        targetArr.splice(index, 1);
-      }
-      return redBallSelect.sort((a,b)=>{return a-b});
+    //   let targetArr = [...redball];
+    //   let redBallSelect = [];
+    //   while (redBallSelect.length < 6) {
+    //     let r = fnObj.getRandomFromArray(targetArr);
+    //     let index = targetArr.indexOf(r);
+    //     redBallSelect.push(r);
+    //     targetArr.splice(index, 1);
+    //   }
+    //   return redBallSelect.sort((a,b)=>{return a-b});
+	return fnObj.getRandomElementsUsingShuffle(redball, 6)
     },
+	shuffleArray(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+
+
+    const j = Math.floor(Math.random() * (i + 1));
+
+
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+
+
   }
-  fnObj.calculate();
+  return arr;
+
+
+},
+
+
+ getRandomElementsUsingShuffle(arr, n) {
+
+
+  let shuffledArray = fnObj.shuffleArray(arr.slice());
+
+
+  return shuffledArray.slice(0, n);
+
+
+}
+  }
+ fnObj.calculate();
